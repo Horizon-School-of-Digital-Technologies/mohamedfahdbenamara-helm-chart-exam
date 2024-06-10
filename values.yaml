@@ -1,0 +1,19 @@
+replicaCount: 3
+image:
+  repository: mohamedfahd/golang-mathapp
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  type: NodePort
+  port: 80
+ingress:
+  enabled: true
+  hostname: "mohamedfahdbenamara-math.horizon-workspaces.com"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+persistence:
+  enabled: true
+  size: 1Gi
+  accessMode: ReadWriteOnce
+  storageClass: gp2
+

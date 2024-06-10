@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "golang-mathapp-chart.fullname" . }}
+  labels:
+    app: {{ include "golang-mathapp-chart.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "golang-mathapp-chart.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "golang-mathapp-chart.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8010
+          volumeMounts:
+            - name: data
+              mountPath: "/tmp/data"
+
